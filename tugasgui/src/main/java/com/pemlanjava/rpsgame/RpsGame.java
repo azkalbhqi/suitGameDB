@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class RpsGame extends JFrame implements ActionListener {
-    private JButton batuBtn, kertasBtn, guntingBtn, saveBtn;
+    private JButton batuBtn, kertasBtn, guntingBtn, saveBtn, leaderboardBtn;
     private JLabel playerLabel, komLabel, hasiLabel;
     private JLabel pScoreLabel, comScoreLabel;
     private int playerScore, computerScore;
@@ -67,7 +67,6 @@ public class RpsGame extends JFrame implements ActionListener {
         batuBtn = new JButton("Batu");
         kertasBtn = new JButton("Kertas");
         guntingBtn = new JButton("Gunting");
-        saveBtn = new JButton("Save Score");
 
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new FlowLayout());
@@ -76,15 +75,26 @@ public class RpsGame extends JFrame implements ActionListener {
         buttonsPanel.add(batuBtn);
         buttonsPanel.add(guntingBtn);
         buttonsPanel.add(kertasBtn);
-        buttonsPanel.add(saveBtn);
 
-        add(buttonsPanel, BorderLayout.SOUTH);
+        add(buttonsPanel, BorderLayout.CENTER);
+
+        saveBtn = new JButton("Save Score");
+        leaderboardBtn = new JButton("Leaderboard");
+
+        JPanel btnbawah = new JPanel();
+        btnbawah.setLayout(new FlowLayout());
+        btnbawah.setBackground(Color.WHITE);
+        btnbawah.add(saveBtn);
+        btnbawah.add(leaderboardBtn);
+
+        add(btnbawah, BorderLayout.SOUTH);
 
         // Add action listeners
         batuBtn.addActionListener(this);
         kertasBtn.addActionListener(this);
         guntingBtn.addActionListener(this);
         saveBtn.addActionListener(e -> saveScores());
+        leaderboardBtn.addActionListener(e -> openLeaderboard());
 
         // Score labels
         pScoreLabel = new JLabel("Skor Kamu: " + playerScore);
@@ -147,6 +157,11 @@ public class RpsGame extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(this, "Scores saved successfully!");
     }
 
+    private void openLeaderboard() {
+        Leaderboard leaderboardGUI = new Leaderboard();
+        leaderboardGUI.setVisible(true);
+    }
+
     private String getComputerChoice() {
         String[] choices = {"Batu", "Kertas", "Gunting"};
         Random random = new Random();
@@ -165,4 +180,5 @@ public class RpsGame extends JFrame implements ActionListener {
             return "Wkwk Kalah";
         }
     }
+
 }

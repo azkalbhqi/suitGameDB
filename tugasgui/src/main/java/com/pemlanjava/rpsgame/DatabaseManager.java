@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseManager {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/rps_game";
@@ -23,7 +25,7 @@ public class DatabaseManager {
     private Connection connect() {
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,5 +80,22 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Object[]> getLeaderboard() {
+        List<Object[]> leaderboard = new ArrayList<>();
+        String sql = "SELECT players.name, scores.play, scores.win FROM players JOIN scores ON players.id = scores.player_id ORDER BY scores.win DESC";
+        String sq = "select distinct p.name as name, s.play as play, s.win as win FROM players p JOIN scores s ON p.id = s.player_id group by name";
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sq);
+             ResultSet rs = pstmt.executeQuery()) {
+            int rank = 1;
+            while (rs.next()) {
+                leaderboard.add(new Object[]{rank++, rs.getString("name"), rs.getInt("play"), rs.getInt("win")});
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return leaderboard;
     }
 }

@@ -24,6 +24,12 @@ public class LoginWindow extends JFrame implements ActionListener {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         mainPanel.setBackground(new Color(60, 63, 65));
 
+        // Add title
+        JLabel titleLabel = new JLabel("Rock Paper Scissors! Game", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setForeground(Color.WHITE);
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
+
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(4, 1, 10, 10));
         inputPanel.setBackground(new Color(60, 63, 65));
@@ -71,7 +77,7 @@ public class LoginWindow extends JFrame implements ActionListener {
             game.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Invalid username or password.");
+            JOptionPane.showMessageDialog(this, "Login failed. Please check your username and password.");
         }
     }
 
