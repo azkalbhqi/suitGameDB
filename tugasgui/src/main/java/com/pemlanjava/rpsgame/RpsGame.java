@@ -67,6 +67,8 @@ public class RpsGame extends JFrame implements ActionListener {
         batuBtn = new JButton("Batu");
         kertasBtn = new JButton("Kertas");
         guntingBtn = new JButton("Gunting");
+        saveBtn = new JButton("Save Score");
+        leaderboardBtn = new JButton("Leaderboard");
 
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new FlowLayout());
@@ -75,26 +77,21 @@ public class RpsGame extends JFrame implements ActionListener {
         buttonsPanel.add(batuBtn);
         buttonsPanel.add(guntingBtn);
         buttonsPanel.add(kertasBtn);
-
-        add(buttonsPanel, BorderLayout.CENTER);
-
-        saveBtn = new JButton("Save Score");
-        leaderboardBtn = new JButton("Leaderboard");
-
         JPanel btnbawah = new JPanel();
         btnbawah.setLayout(new FlowLayout());
-        btnbawah.setBackground(Color.WHITE);
         btnbawah.add(saveBtn);
-        btnbawah.add(leaderboardBtn);
+        buttonsPanel.add(btnbawah);
+        btnbawah.add(leaderboardBtn);  
 
-        add(btnbawah, BorderLayout.SOUTH);
+        
+        add(buttonsPanel, BorderLayout.SOUTH);
 
         // Add action listeners
         batuBtn.addActionListener(this);
         kertasBtn.addActionListener(this);
         guntingBtn.addActionListener(this);
         saveBtn.addActionListener(e -> saveScores());
-        leaderboardBtn.addActionListener(e -> openLeaderboard());
+        leaderboardBtn.addActionListener(e -> openLeaderboard());  
 
         // Score labels
         pScoreLabel = new JLabel("Skor Kamu: " + playerScore);
@@ -180,5 +177,4 @@ public class RpsGame extends JFrame implements ActionListener {
             return "Wkwk Kalah";
         }
     }
-
 }

@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseManager {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/rps_game";
-    private static final String USER = "root";
-    private static final String PASS = "";
+    private static final String DB_URL = "jdbc:mysql://rpsgame_directlymy:516ef5dd603183e673090a827363399c98a4bfb2@dwm.h.filess.io:3307/rpsgame_directlymy";
+    private static final String USER = "rpsgame_directlymy";
+    private static final String PASS = "516ef5dd603183e673090a827363399c98a4bfb2";
 
     public DatabaseManager() {
         try {
@@ -87,7 +87,7 @@ public class DatabaseManager {
         String sql = "SELECT players.name, scores.play, scores.win FROM players JOIN scores ON players.id = scores.player_id ORDER BY scores.win DESC";
         String sq = "select distinct p.name as name, s.play as play, s.win as win FROM players p JOIN scores s ON p.id = s.player_id group by name";
         try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sq);
+             PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
             int rank = 1;
             while (rs.next()) {
